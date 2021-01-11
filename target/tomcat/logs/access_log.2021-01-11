@@ -1,0 +1,15 @@
+127.0.0.1 - - [11/Jan/2021:13:50:17 +0100] "GET /team_manager HTTP/1.1" 302 - http-bio-8080-exec-1 0
+127.0.0.1 - - [11/Jan/2021:13:50:18 +0100] "GET /team_manager/ HTTP/1.1" 200 551 http-bio-8080-exec-2 433
+127.0.0.1 - - [11/Jan/2021:13:53:03 +0100] "GET /team_manager/ HTTP/1.1" 200 346 http-bio-8080-exec-4 324
+127.0.0.1 - - [11/Jan/2021:13:55:02 +0100] "GET /team_manager/ HTTP/1.1" 200 608 http-bio-8080-exec-6 55
+127.0.0.1 - - [11/Jan/2021:13:55:34 +0100] "GET /team_manager/ HTTP/1.1" 200 608 http-bio-8080-exec-7 4
+127.0.0.1 - - [11/Jan/2021:13:55:35 +0100] "GET /team_manager/ HTTP/1.1" 200 608 http-bio-8080-exec-8 3
+127.0.0.1 - - [11/Jan/2021:13:56:32 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-9 48
+127.0.0.1 - - [11/Jan/2021:13:57:01 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-10 41
+127.0.0.1 - - [11/Jan/2021:14:07:54 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 5
+127.0.0.1 - - [11/Jan/2021:14:08:33 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 46
+127.0.0.1 - - [11/Jan/2021:14:08:34 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 3
+127.0.0.1 - - [11/Jan/2021:14:08:36 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 4
+127.0.0.1 - - [11/Jan/2021:14:08:36 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 3
+127.0.0.1 - - [11/Jan/2021:14:08:36 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 4
+127.0.0.1 - - [11/Jan/2021:14:08:36 +0100] "GET /team_manager/ HTTP/1.1" 200 468 http-bio-8080-exec-2 3
