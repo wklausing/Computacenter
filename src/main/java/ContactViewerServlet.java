@@ -23,10 +23,6 @@ public class ContactViewerServlet extends HttpServlet {
         view.forward(req, resp);
     }
 
-    /**
-     *
-     * @return HashMap with all contacts.
-     */
     private Map getAllContacts () {
         HashMap<String, Contact> contacts = new HashMap <String, Contact>();
 
@@ -44,10 +40,5 @@ public class ContactViewerServlet extends HttpServlet {
     public void init() throws ServletException {
         String foo = getInitParameter("foo");
         String bar = getServletContext().getInitParameter("bar");
-
-
     }
-
-
-
 }
