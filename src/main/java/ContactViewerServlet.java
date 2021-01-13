@@ -4,7 +4,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.Result;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.*;
 
 @WebServlet(
@@ -36,9 +41,5 @@ public class ContactViewerServlet extends HttpServlet {
         return contacts;
     }
 
-    @Override
-    public void init() throws ServletException {
-        String foo = getInitParameter("foo");
-        String bar = getServletContext().getInitParameter("bar");
-    }
+
 }

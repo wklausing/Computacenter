@@ -1,6 +1,4 @@
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 import java.sql.*;
 
 public class main {
@@ -14,6 +12,8 @@ public class main {
         if(connectToDB()) {
             System.out.println("DB works!");
         }
+
+//        deleteContact("3");
     }
 
 
@@ -55,5 +55,33 @@ public class main {
             System.out.println(e);
         }
         return true;
+    }
+
+    public static void deleteContact (String id) {
+        ResultSet rs = null;
+        try {
+            Connection con = DriverManager.getConnection(
+                    "jdbc:mysql://127.0.0.1:3306/computacenter", "root", "");
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate("DELETE FROM contact WHERE ID = 3");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public List<HashMap<String,Object>> convertResultSetToList(ResultSet rs) throws SQLException {
+        ResultSetMetaData md = rs.getMetaData();
+        int columns = md.getColumnCount();
+        List<HashMap<String,Object>> list = new ArrayList<HashMap<String,Object>>();
+
+        while (rs.next()) {
+            HashMap<String,Object> row = new HashMap<String, Object>(columns);
+            for(int i=1; i<=columns; ++i) {
+                row.put(md.getColumnName(i),rs.getObject(i));
+            }
+            list.add(row);
+        }
+
+        return list;
     }
 }

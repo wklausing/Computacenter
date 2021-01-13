@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.sql.*" %>
+<%@ page import="database.DatabaseConnector" %>
 <html>
 <head>
     <title>Detailansicht</title>
@@ -23,12 +24,11 @@
             <th>Löschen</th>
         </tr>
         <%
-            String id = request.getParameter("contact_id");
-            try {
-                Connection con = DriverManager.getConnection(
-                        "jdbc:mysql://127.0.0.1:3306/computacenter", "root", "");
-                Statement stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("select * from contact");
+            DatabaseConnector db = new DatabaseConnector();
+            ResultSet rs = db.getContacts();
+            if (rs == null) {
+                out.println("Keine Daten oder keine Verbindug zur Db.");
+            } else {
                 while (rs.next()) {
         %>
         <tr>
@@ -40,13 +40,17 @@
             </td>
             <td><%= rs.getString(4) %>
             </td>
-            <td> <button type="button">Löschen</button>
+            <td>
+<%--                <button type="button">Löschen</button>--%>
+                <form method="get" action="DetailViewer">
+                    <button name="contact_id" type="submit">
+                        Löschen
+                    </button>
+                </form>
             </td>
         </tr>
         <%
                 }
-            } catch (Exception e) {
-                out.println(e);
             }
         %>
     </table>
