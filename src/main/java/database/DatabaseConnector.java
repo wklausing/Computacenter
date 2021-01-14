@@ -1,51 +1,82 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DatabaseConnector {
 
     /**
-     * Get contacts from database.
-     * @return ResultSet rs includes all contacts or NULL.
+     *
+     * @param sql
+     * @return
      */
-    public ResultSet getContacts() {
-        ResultSet rs = null;
-        Connection con = null;
-        try {
-            con = DriverManager.getConnection(
-                    "jdbc:mysql://127.0.0.1:3306/computacenter", "root", "");
-            Statement stmt = con.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM contact");
-
-        } catch (Exception e) {
+    public ArrayList executeQuery(String sql) {
+        ArrayList result = null;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection con=DriverManager.getConnection(
+                    "jdbc:mysql://127.0.0.1:3306/computacenter","root","");
+            Statement stmt=con.createStatement();
+            ResultSet rs=stmt.executeQuery(sql);
+            result = rsToArrayList(rs);
+            con.close();
+        }catch(Exception e){
             System.out.println(e);
         }
-//        finally {
-//        try { rs.close(); } catch (Exception e) { /* ignored */ }
-//        try { con.close(); } catch (Exception e) { /* ignored */ }
-//    }
-        return rs;
+        return result;
     }
 
     /**
-     * Detele contact by ID
-     * @param id of contact
-     * @return true if deletion was succesful and false if not.
+     *
+     * @param sql
+     * @return true if sql was successful and false if not.
      */
-    public void deleteContact (String id) {
+    public boolean executeUpdate(String sql) {
         ResultSet rs = null;
         try {
             Connection con = DriverManager.getConnection(
                     "jdbc:mysql://127.0.0.1:3306/computacenter", "root", "");
             Statement stmt = con.createStatement();
-            stmt.executeUpdate("DELETE FROM contact WHERE ID = 3");
+            stmt.executeUpdate(sql);
         } catch (Exception e) {
             System.out.println(e);
+            return false;
         }
+        return true;
     }
 
+    /**
+     *
+     * @param rs is result of executed sql querie.
+     * @return ResultSet as List
+     */
+    private ArrayList rsToArrayList(ResultSet rs) throws SQLException{
+        ResultSetMetaData md = rs.getMetaData();
+        int columns = md.getColumnCount();
+        ArrayList list = new ArrayList(50);
+        while (rs.next()){
+            HashMap row = new HashMap(columns);
+            for(int i=1; i<=columns; ++i){
+                row.put(md.getColumnName(i),rs.getObject(i));
+            }
+            list.add(row);
+        }
+        return list;
+    }
 
+    /**
+     * For me only to test if method got executed. TODO Delete this.
+     * @param executedFrom
+     * @return
+     */
+    public boolean testMethod (String executedFrom) {
+        String sql = "INSERT INTO `contact` (`ID`, `firstname`, `lastname`, `email`) VALUES ('" + executedFrom + "', 'testMethodFirstname', 'testMethodLastname', 'testMethod.th@gmail.com')";
+        return executeUpdate(sql);
+    }
+
+    public boolean testMethod2 (String executedFrom, String req) {
+        String sql = "INSERT INTO `contact` (`ID`, `firstname`, `lastname`, `email`) VALUES ('" + executedFrom + "', '" + req + "', 'testMethodLastname', 'testMethod.th@gmail.com')";
+        return executeUpdate(sql);
+    }
 }

@@ -6,8 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="database.DatabaseConnector" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.HashMap" %>
 <html>
 <head>
     <title>Detailansicht</title>
@@ -25,25 +27,26 @@
         </tr>
         <%
             DatabaseConnector db = new DatabaseConnector();
-            ResultSet rs = db.getContacts();
+            ArrayList rs = db.executeQuery("SELECT * FROM contact");
+            Iterator iteratorContacts = rs.listIterator();
             if (rs == null) {
-                out.println("Keine Daten oder keine Verbindug zur Db.");
+                out.println("Keine Daten oder keine Verbindug zur Datenbank.");
             } else {
-                while (rs.next()) {
+                while (iteratorContacts.hasNext()) {
+                    HashMap<String, String> contact = (HashMap<String, String>) iteratorContacts.next();
         %>
         <tr>
-            <td><%= rs.getString(1) %>
+            <td><%= contact.get("ID") %>
             </td>
-            <td><%= rs.getString(2) %>
+            <td><%= contact.get("firstname") %>
             </td>
-            <td><%= rs.getString(3) %>
+            <td><%= contact.get("lastname") %>
             </td>
-            <td><%= rs.getString(4) %>
+            <td><%= contact.get("email") %>
             </td>
             <td>
-<%--                <button type="button">Löschen</button>--%>
                 <form method="get" action="DetailViewer">
-                    <button name="contact_id" type="submit">
+                    <button name="delete_id" type="submit" value=<%= contact.get("ID") %>>
                         Löschen
                     </button>
                 </form>
@@ -53,9 +56,29 @@
                 }
             }
         %>
+        <tr>
+            <td><input placeholder="Eindeutige ID" name="create_new_contact">
+            </td>
+            <td><input placeholder="Vorname" name="create_new_contact">
+            </td>
+            <td><input placeholder="Nachname" name="create_new_contact">
+            </td>
+            <td><input placeholder="Email" name="create_new_contact">
+            </td>
+            <td>
+                <form method="get" action="DetailViewer">
+                    <button name="delete_id" type="submit" value="0">
+                        Erstellen
+                    </button>
+                </form>
+            </td>
+        </tr>
     </table>
 
-    <button type="button" name="back" onclick="history.back()">Zurück</button>
+    <form action="http://localhost:8080/team_manager/">
+        <input type="submit" value="Zurück"/>
+    </form>
+
 
 </center>
 </body>

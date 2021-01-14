@@ -1,6 +1,7 @@
-<%@ page import="java.util.*" %>
-<%@ page import="java.sql.*" %>
 <%@ page import="database.DatabaseConnector" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.Iterator" %>
+<%@ page import="java.util.HashMap" %>
 <%--TODO If table gets too big, split into several sites.--%>
 <!DOCTYPE html>
 <html>
@@ -19,20 +20,22 @@
         </tr>
         <%
             DatabaseConnector db = new DatabaseConnector();
-            ResultSet rs = db.getContacts();
+            ArrayList rs = db.executeQuery("SELECT * FROM contact");
+            Iterator iteratorContacts = rs.listIterator();
             if (rs == null) {
-                out.println("Keine Daten oder keine Verbindug zur Db.");
+                out.println("Keine Daten oder keine Verbindug zur Datenbank.");
             } else {
-                while (rs.next()) {
+                while (iteratorContacts.hasNext()) {
+                    HashMap<String, String> contact = (HashMap<String, String>) iteratorContacts.next();
         %>
         <tr>
-            <td><%= rs.getString(1) %>
+            <td><%= contact.get("ID") %>
             </td>
-            <td><%= rs.getString(2) %>
+            <td><%= contact.get("firstname") %>
             </td>
-            <td><%= rs.getString(3) %>
+            <td><%= contact.get("lastname") %>
             </td>
-            <td><%= rs.getString(4) %>
+            <td><%= contact.get("email") %>
             </td>
         </tr>
         <%

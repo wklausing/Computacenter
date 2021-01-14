@@ -1,3 +1,4 @@
 DetailViewerServlet.class
 database/DatabaseConnector.class
 ContactViewerServlet.class
+database/model/Contact.class
