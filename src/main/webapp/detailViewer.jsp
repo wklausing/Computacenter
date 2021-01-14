@@ -24,6 +24,7 @@
             <th>Nachname</th>
             <th>Email</th>
             <th>Löschen</th>
+            <th>Bearbeiten</th>
         </tr>
         <%
             DatabaseConnector db = new DatabaseConnector();
@@ -51,26 +52,33 @@
                     </button>
                 </form>
             </td>
+            <td>
+                <form method="get" action="DetailViewer">
+                    <button name="edit" type="submit" value=<%= contact.get("ID") %>>
+                        Bearbeiten
+                    </button>
+                </form>
+            </td>
         </tr>
         <%
                 }
             }
         %>
         <tr>
-            <td><input placeholder="Eindeutige ID" name="create_new_contact">
-            </td>
-            <td><input placeholder="Vorname" name="create_new_contact">
-            </td>
-            <td><input placeholder="Nachname" name="create_new_contact">
-            </td>
-            <td><input placeholder="Email" name="create_new_contact">
-            </td>
-            <td>
-                <form method="get" action="DetailViewer">
-                    <button name="delete_id" type="submit" value="0">
+            <form method="get" action="DetailViewer">
+                <td><input type="text" placeholder="Eindeutige ID" name="create_new_contact_ID">
+                </td>
+                <td><input type="text" placeholder="Vorname" name="create_new_contact_firstname">
+                </td>
+                <td><input type="text" placeholder="Nachname" name="create_new_contact_lastname">
+                </td>
+                <td><input type="text" placeholder="Email" name="create_new_contact_email">
+                </td>
+                <td>
+                    <button type="submit" name="create" value="1">
                         Erstellen
                     </button>
-                </form>
+            </form>
             </td>
         </tr>
     </table>

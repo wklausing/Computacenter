@@ -79,4 +79,15 @@ public class DatabaseConnector {
         String sql = "INSERT INTO `contact` (`ID`, `firstname`, `lastname`, `email`) VALUES ('" + executedFrom + "', '" + req + "', 'testMethodLastname', 'testMethod.th@gmail.com')";
         return executeUpdate(sql);
     }
+
+    public boolean testMethod3 (String executedFrom, String[] req) {
+        String sql = null;
+        if (req == null) {
+            sql = "INSERT INTO `contact` (`ID`, `firstname`, `lastname`, `email`) VALUES ('" + executedFrom + "', '" + req + "', 'testMethodLastname', 'testMethod.th@gmail.com')";
+        } else {
+            sql = "INSERT INTO `contact` (`ID`, `firstname`, `lastname`, `email`) VALUES ('" + executedFrom + "', '" + req[0] + "', 'testMethodLastname', 'testMethod.th@gmail.com')";
+        }
+        return executeUpdate(sql);
+
+    }
 }
